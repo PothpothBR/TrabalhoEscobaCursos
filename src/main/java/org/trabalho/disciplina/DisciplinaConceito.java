@@ -2,7 +2,7 @@ package org.trabalho.disciplina;
 
 public class DisciplinaConceito implements Disciplina{
     String Nome;
-    Double Nota;
+    int Nota;
     long id;
 
     @Override
@@ -26,12 +26,12 @@ public class DisciplinaConceito implements Disciplina{
     }
 
     @Override
-    public float getNota() {
+    public int getNota() {
         return 0;
     }
 
     @Override
-    public void setNota(float nota) {
+    public void setNota(int nota) {
 
     }
 

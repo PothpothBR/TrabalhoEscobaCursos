@@ -11,8 +11,18 @@ public class Mestrado implements Curso{
     }
 
     @Override
+    public void setNome(String nome) {
+
+    }
+
+    @Override
     public List<Disciplina> getDisciplinas() {
         return null;
+    }
+
+    @Override
+    public void setDisciplina(Disciplina disciplina) {
+
     }
 
     @Override
@@ -23,5 +33,15 @@ public class Mestrado implements Curso{
     @Override
     public boolean isAprovado() {
         return false;
+    }
+
+    @Override
+    public long getId() {
+        return 0;
+    }
+
+    @Override
+    public void setId(long id) {
+
     }
 }

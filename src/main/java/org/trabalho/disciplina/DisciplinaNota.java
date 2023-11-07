@@ -22,12 +22,12 @@ public class DisciplinaNota implements Disciplina{
     }
 
     @Override
-    public float getNota() {
+    public int getNota() {
         return 0;
     }
 
     @Override
-    public void setNota(float nota) {
+    public void setNota(int nota) {
 
     }
 

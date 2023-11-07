@@ -5,8 +5,8 @@ import org.trabalho.database.Table;
 public interface Disciplina extends Table {
     String getNome();
     void setNome(String nome);
-    float getNota();
-    void setNota(float nota);
+    int getNota();
+    void setNota(int nota);
 
     boolean isConcluido();
 

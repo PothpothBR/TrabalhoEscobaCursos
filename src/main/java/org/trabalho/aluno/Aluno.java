@@ -7,20 +7,24 @@ import java.util.List;
 
 public class Aluno implements Table {
 
-    long id;
-    String nome = "";
-    List<Curso> cursos;
+    private long id;
+    private String nome = "";
+    private List<Curso> cursos;
 
     public List<Curso> getCursos() {
         return cursos;
     }
 
     public void setCurso(Curso curso){
-
+        cursos.add(curso);
     }
 
     public String getNome(){
         return nome;
+    }
+
+    public void setNome(String nome){
+        this.nome = nome;
     }
 
     public boolean isAprovado(){
@@ -28,7 +32,7 @@ public class Aluno implements Table {
     }
 
     public boolean podeCursar(){
-        return false;
+        return false; //TODO
     }
      @Override
     public long getId() {
@@ -37,6 +41,6 @@ public class Aluno implements Table {
 
     @Override
     public void setId(long id) {
-
+        this.id = id;
     }
 }
