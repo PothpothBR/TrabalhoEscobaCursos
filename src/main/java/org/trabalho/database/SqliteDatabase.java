@@ -87,14 +87,14 @@ public class SqliteDatabase implements Database {
     @Override
     public void updateCurso(Curso curso) throws SQLException {
         conn.prepareStatement(
-            "update curso set nome = "+curso.getNome()+"where id = "+curso.getId()
+            "update curso set nome = '"+curso.getNome()+"' where id = "+curso.getId()
         ).executeUpdate();
     }
 
     @Override
     public void updateAluno(Aluno aluno) throws SQLException {
         conn.prepareStatement(
-                "update aluno set nome = "+aluno.getNome()+"where id = "+aluno.getId()
+                "update aluno set nome = '"+aluno.getNome()+"' where id = "+aluno.getId()
         ).executeUpdate();
     }
 
@@ -102,12 +102,12 @@ public class SqliteDatabase implements Database {
     public void updateDisciplina(Disciplina disciplina) throws SQLException {
         conn.prepareStatement(
                 "update disciplina set id_curso = " +
-                        ", nome = " + disciplina.getNome() +
-                        ", nota = " + disciplina.getNota() +
+                        ", nome = '" + disciplina.getNome() +
+                        "', nota = " + disciplina.getNota() +
                         ", nota_corte = " + disciplina.getNotaCorte() +
                         ", concluido = , " + (disciplina.isConcluido() ? 1 : 0) +
-                        "tipo = "+ disciplina.getClass().getSimpleName() +
-                        "where id = "+disciplina.getId()
+                        "tipo = '"+ disciplina.getClass().getSimpleName() +
+                        "' where id = "+disciplina.getId()
         ).executeUpdate();
     }
 

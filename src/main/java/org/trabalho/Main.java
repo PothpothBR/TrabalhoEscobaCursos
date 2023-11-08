@@ -6,6 +6,7 @@ import org.trabalho.database.DatabaseBuilder;
 import org.trabalho.database.SqliteBuilder;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -16,5 +17,12 @@ public class Main {
         rodolpho.setNome("rodolpho");
 
         database.insertAluno(rodolpho);
+
+        rodolpho.setNome("josias");
+
+        database.updateAluno(rodolpho);
+
+        List<Aluno> alunos = database.selectAlunos();
+        alunos.forEach(aluno -> System.out.println(aluno.getNome()));
     }
 }
