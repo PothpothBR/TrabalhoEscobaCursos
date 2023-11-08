@@ -27,29 +27,27 @@ public class Main {
 
         database.insertAluno(rodolpho);
 
-        Curso cursoDeSexo = new Tecnico();
-        cursoDeSexo.setNome("tecnico");
+        Curso curso = new Tecnico();
+        curso.setNome("tecnico");
 
-        rodolpho.addCurso(cursoDeSexo);
+        rodolpho.addCurso(curso);
 
-        database.insertCurso(cursoDeSexo);
+        database.insertCurso(curso);
 
-        if (rodolpho.podeCursar().stream().noneMatch(s -> s.equals(cursoDeSexo.getClass().getSimpleName()))) return;
+        if (rodolpho.podeCursar().stream().noneMatch(s -> s.equals(curso.getClass().getSimpleName()))) return;
 
-        database.insertMatricula(rodolpho, cursoDeSexo);
+        database.insertMatricula(rodolpho, curso);
 
         Disciplina disciplina = new DisciplinaNota();
 
         disciplina.setNotaCorte(6);
-        disciplina.setNome("sexolandia2");
+        disciplina.setNome("disciplina 2");
 
-        database.insertDisciplina(disciplina, cursoDeSexo);
+        database.insertDisciplina(disciplina, curso);
         disciplina.setNota(9);
         disciplina.setConcluido(true);
         rodolpho.isAprovado();
         database.updateDisciplina(disciplina);
-
-
 
         Curso c2 = new Bacharelado();
         c2.setNome("bacharelado");
@@ -65,7 +63,7 @@ public class Main {
         disciplina = new DisciplinaNota();
 
         disciplina.setNotaCorte(6);
-        disciplina.setNome("sexolandia");
+        disciplina.setNome("disciplina 1");
 
         database.insertDisciplina(disciplina, c2);
         disciplina.setNota(9);
@@ -88,7 +86,7 @@ public class Main {
         disciplina = new DisciplinaConceito();
 
         disciplina.setNotaCorte(DisciplinaConceito.Conceito.C.getValor());
-        disciplina.setNome("sexolandia");
+        disciplina.setNome("disciplina 3");
 
         database.insertDisciplina(disciplina, c3);
         disciplina.setNota(DisciplinaConceito.Conceito.D.getValor());
@@ -122,7 +120,7 @@ public class Main {
         List<Aluno> alunos = database.selectAlunos();
         alunos.forEach(aluno -> System.out.println("Id:" + aluno.getId() + "\nNome: " + aluno.getNome()));
         System.out.println("\n");
-        List<Disciplina> disciplinas = database.selectDisciplinas(cursoDeSexo);
+        List<Disciplina> disciplinas = database.selectDisciplinas(curso);
         disciplinas.addAll(database.selectDisciplinas(c2));
         disciplinas.addAll(database.selectDisciplinas(c3));
 
