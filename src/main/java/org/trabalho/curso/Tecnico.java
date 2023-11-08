@@ -30,6 +30,11 @@ public class Tecnico implements Curso{
     }
 
     @Override
+    public void setDisciplina(List<Disciplina> disciplina) {
+        this.disciplinas.addAll(disciplina);
+    }
+
+    @Override
     public List<String> dependeDe() {
         return List.of();
     }

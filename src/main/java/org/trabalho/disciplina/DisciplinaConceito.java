@@ -55,6 +55,11 @@ public class DisciplinaConceito implements Disciplina{
     }
 
     @Override
+    public void setConcluido(boolean concluido) {
+        this.isConcluido = concluido;
+    }
+
+    @Override
     public boolean isAprovado() {
         return isConcluido() && notaCorte < nota;
     }
