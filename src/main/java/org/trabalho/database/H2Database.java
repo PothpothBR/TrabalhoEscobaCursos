@@ -16,10 +16,15 @@ import java.util.List;
 public class H2Database implements Database {
     private Connection conn;
 
+    private long lastId(String table) throws SQLException {
+        ResultSet res = conn.prepareStatement("select max(id) max from "+table).executeQuery();
+        if(res.next()) return res.getLong(res.findColumn("max"));
+        return 0;
+    }
 
     @Override
     public void open() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:h2:./h2db.db");
+        conn = DriverManager.getConnection("jdbc:h2:./h2.db");
         Statement statement = conn.createStatement();
         statement.executeUpdate(
                 "CREATE TABLE IF NOT EXISTS curso (id BIGINT AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(255) NOT NULL, tipo VARCHAR(255) NOT NULL)"
@@ -46,12 +51,7 @@ public class H2Database implements Database {
         statement.setString(2, curso.getClass().getSimpleName());
         statement.executeUpdate();
 
-        ResultSet generatedKeys = statement.getGeneratedKeys();
-
-        if (generatedKeys.next()) {
-            curso.setId(generatedKeys.getLong(1));
-        }
-
+        curso.setId(lastId("curso"));
     }
 
     @Override
@@ -62,12 +62,7 @@ public class H2Database implements Database {
         statement.setString(1, aluno.getNome());
         statement.executeUpdate();
 
-        ResultSet generatedKeys = statement.getGeneratedKeys();
-
-        if (generatedKeys.next()) {
-            aluno.setId(generatedKeys.getLong(1));
-        }
-
+        aluno.setId(lastId("aluno"));
     }
 
     @Override
@@ -84,12 +79,7 @@ public class H2Database implements Database {
         statement.setString(6, disciplina.getClass().getSimpleName());
         statement.executeUpdate();
 
-        ResultSet generatedKeys = statement.getGeneratedKeys();
-
-        if (generatedKeys.next()) {
-            disciplina.setId(generatedKeys.getLong(1));
-        }
-
+        disciplina.setId(lastId("disciplina"));
     }
 
     @Override
