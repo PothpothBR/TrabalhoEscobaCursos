@@ -5,6 +5,7 @@ import org.trabalho.curso.Curso;
 import org.trabalho.disciplina.Disciplina;
 
 import java.sql.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class SqliteDatabase implements Database {
@@ -32,7 +33,7 @@ public class SqliteDatabase implements Database {
         statement.executeUpdate(
                 "create table if not exists diciplina " +
                     "(id integer primary key, id_curso integer not null, nome text not null, nota integer not null, " +
-                    "nota_corte integer not null, tipo text not null)");
+                    "nota_corte integer not null, concluido integer not null, tipo text not null)");
     }
 
     @Override
@@ -49,17 +50,31 @@ public class SqliteDatabase implements Database {
     @Override
     public void insertAluno(Aluno aluno) throws SQLException {
         conn.prepareStatement(
-                "insert into aluno (nome, tipo) values ('" +
-                        aluno.getNome() + "', '" +
-                        aluno.getClass().getSimpleName() + "')"
+                "insert into aluno (nome) values ('" +
+                        aluno.getNome() + "')"
         ).executeUpdate();
 
         aluno.setId(lastId());
     }
 
     @Override
-    public void insertDisciplina(Disciplina disciplina) {
+    public void insertDisciplina(Disciplina disciplina, Curso curso) throws SQLException {
+        conn.prepareStatement(
+                "insert into disciplina (id_curso, nome, nota, nota_corte, concluido, tipo) values ('" +
+                        curso.getId() + "', '" +
+                        disciplina.getNome() + "', '" +
+                        disciplina.getNota() + "', '" +
+                        disciplina.getNotaCorte() + "', '" +
+                        disciplina.isConcluido() + "', '" +
+                        disciplina.getClass().getSimpleName() + "')"
+        ).executeUpdate();
+
+        disciplina.setId(lastId());
     }
+
+    enum Aa{
+
+    };
 
     @Override
     public void updateCurso(Curso curso) {

@@ -6,6 +6,8 @@ public interface Disciplina extends Table {
     String getNome();
     void setNome(String nome);
     int getNota();
+    int getNotaCorte();
+
     void setNota(int nota);
 
     boolean isConcluido();
