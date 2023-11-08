@@ -1,6 +1,6 @@
 package org.trabalho.disciplina;
 
-public class DBachareladoA implements Disciplina{
+public class DisciplinaConceito implements Disciplina{
     boolean isAprovado;
     String Nome;
     Double Nota;
@@ -12,13 +12,33 @@ public class DBachareladoA implements Disciplina{
     }
 
     @Override
+    public void setId(long id) {
+
+    }
+
+    @Override
     public String getNome() {
         return Nome;
     }
 
     @Override
+    public void setNome(String nome) {
+
+    }
+
+    @Override
     public float getNota() {
         return 0;
+    }
+
+    @Override
+    public void setNota(float nota) {
+
+    }
+
+    @Override
+    public boolean isConcluido() {
+        return false;
     }
 
     @Override

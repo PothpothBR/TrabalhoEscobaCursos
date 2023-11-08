@@ -9,11 +9,14 @@ public class Aluno implements Table {
 
     long id;
     String nome = "";
-
     List<Curso> cursos;
 
     public List<Curso> getCursos() {
         return cursos;
+    }
+
+    public void setCurso(Curso curso){
+
     }
 
     public String getNome(){
@@ -30,5 +33,10 @@ public class Aluno implements Table {
      @Override
     public long getId() {
         return id;
+    }
+
+    @Override
+    public void setId(long id) {
+
     }
 }

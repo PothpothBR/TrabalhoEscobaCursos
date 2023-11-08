@@ -1,9 +1,14 @@
 package org.trabalho.disciplina;
 
-public class DMestradoB implements Disciplina{
+public class DisciplinaNota implements Disciplina{
     @Override
     public long getId() {
         return 0;
+    }
+
+    @Override
+    public void setId(long id) {
+
     }
 
     @Override
@@ -12,8 +17,23 @@ public class DMestradoB implements Disciplina{
     }
 
     @Override
+    public void setNome(String nome) {
+
+    }
+
+    @Override
     public float getNota() {
         return 0;
+    }
+
+    @Override
+    public void setNota(float nota) {
+
+    }
+
+    @Override
+    public boolean isConcluido() {
+        return false;
     }
 
     @Override

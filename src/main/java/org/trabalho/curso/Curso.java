@@ -1,13 +1,16 @@
 package org.trabalho.curso;
 
+import org.trabalho.database.Table;
 import org.trabalho.disciplina.Disciplina;
 
 import java.util.List;
 
-public interface Curso {
+public interface Curso extends Table {
 
     String getNome();
+    void setNome(String nome);
     List<Disciplina> getDisciplinas();
+    void setDisciplina(Disciplina disciplina);
     String dependeDe();
 
     boolean isAprovado();
