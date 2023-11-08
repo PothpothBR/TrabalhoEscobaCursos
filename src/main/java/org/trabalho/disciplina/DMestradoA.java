@@ -12,12 +12,12 @@ public class DMestradoA implements Disciplina{
     }
 
     @Override
-    public Double getNota() {
-        return null;
+    public float getNota() {
+        return 0;
     }
 
     @Override
-    public Boolean isAprovado() {
-        return null;
+    public boolean isAprovado() {
+        return false;
     }
 }

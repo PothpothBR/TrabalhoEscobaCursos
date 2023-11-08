@@ -17,12 +17,12 @@ public class DBachareladoA implements Disciplina{
     }
 
     @Override
-    public Double getNota() {
-        return Nota;
+    public float getNota() {
+        return 0;
     }
 
     @Override
-    public Boolean isAprovado() {
-        return isAprovado;
+    public boolean isAprovado() {
+        return false;
     }
 }
