@@ -11,13 +11,13 @@ public interface Database {
     void open() throws SQLException;
     void insertCurso(Curso curso) throws SQLException;
     void insertAluno(Aluno aluno) throws SQLException;
-    void insertDisciplina(Disciplina disciplina) throws SQLException;
-
     void insertDisciplina(Disciplina disciplina, Curso curso) throws SQLException;
+    void insertMatricula(Aluno aluno, Curso curso) throws SQLException;
 
-    void updateCurso(Curso curso);
-    void updateAluno(Aluno aluno);
-    void updateDisciplina(Disciplina disciplina);
+    void updateCurso(Curso curso) throws SQLException;
+    void updateAluno(Aluno aluno) throws SQLException;
+    void updateDisciplina(Disciplina disciplina) throws SQLException;
+
     List<Curso> selectCursos();
     List<Aluno> selectAlunos();
     List<Disciplina> selectDisciplinas();

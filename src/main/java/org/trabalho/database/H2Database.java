@@ -24,7 +24,12 @@ public class H2Database implements Database{
     }
 
     @Override
-    public void insertDisciplina(Disciplina disciplina) {
+    public void insertDisciplina(Disciplina disciplina, Curso curso) {
+
+    }
+
+    @Override
+    public void insertMatricula(Aluno aluno, Curso curso) throws SQLException {
 
     }
 
