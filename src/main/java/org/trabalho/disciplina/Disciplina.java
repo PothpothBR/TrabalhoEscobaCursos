@@ -8,6 +8,8 @@ public interface Disciplina extends Table {
     int getNota();
     int getNotaCorte();
 
+    void setNotaCorte(int notaCorte);
+
     void setNota(int nota);
 
     boolean isConcluido();

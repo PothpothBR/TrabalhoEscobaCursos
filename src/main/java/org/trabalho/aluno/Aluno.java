@@ -2,14 +2,17 @@ package org.trabalho.aluno;
 
 import org.trabalho.curso.Curso;
 import org.trabalho.database.Table;
+import org.trabalho.disciplina.Disciplina;
+import org.trabalho.disciplina.DisciplinaConceito;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Aluno implements Table {
 
     private long id;
     private String nome = "";
-    private List<Curso> cursos;
+    private final List<Curso> cursos = new ArrayList<>();
 
     public List<Curso> getCursos() {
         return cursos;
@@ -28,11 +31,14 @@ public class Aluno implements Table {
     }
 
     public boolean isAprovado(){
-        return false; //TODO
+        return cursos.stream().allMatch(Curso::isAprovado);
     }
 
-    public boolean podeCursar(){
-        return false; //TODO
+    public List<String> podeCursar(){
+        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getNome()))) return List.of("Tecnico", "Bacharelado");
+        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getNome()))
+           && cursos.stream().anyMatch(c -> c.isAprovado() && "Bacharelado".equals(c.getNome()))) return List.of("Tecnico", "Bacharelado", "Mestrado");
+        return List.of("Tecnico");
     }
      @Override
     public long getId() {
