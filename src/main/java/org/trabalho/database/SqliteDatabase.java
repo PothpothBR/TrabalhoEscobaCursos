@@ -100,12 +100,11 @@ public class SqliteDatabase implements Database {
     @Override
     public void updateDisciplina(Disciplina disciplina) throws SQLException {
         conn.prepareStatement(
-                "update disciplina set id_curso = " +
-                        ", nome = '" + disciplina.getNome() +
+                "update disciplina set  nome = '" + disciplina.getNome() +
                         "', nota = " + disciplina.getNota() +
                         ", nota_corte = " + disciplina.getNotaCorte() +
-                        ", concluido = , " + (disciplina.isConcluido() ? 1 : 0) +
-                        "tipo = '"+ disciplina.getClass().getSimpleName() +
+                        ", concluido = " + (disciplina.isConcluido() ? 1 : 0) +
+                        ", tipo = '"+ disciplina.getClass().getSimpleName() +
                         "' where id = "+disciplina.getId()
         ).executeUpdate();
     }
