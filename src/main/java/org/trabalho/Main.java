@@ -5,6 +5,7 @@ import org.trabalho.curso.Curso;
 import org.trabalho.curso.Mestrado;
 import org.trabalho.database.Database;
 import org.trabalho.database.DatabaseBuilder;
+import org.trabalho.database.H2Builder;
 import org.trabalho.database.SqliteBuilder;
 import org.trabalho.disciplina.Disciplina;
 import org.trabalho.disciplina.DisciplinaNota;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        DatabaseBuilder databaseBuilder = new SqliteBuilder();
+        DatabaseBuilder databaseBuilder = new H2Builder();
         Database database = databaseBuilder.build();
 
         Aluno rodolpho = new Aluno();
