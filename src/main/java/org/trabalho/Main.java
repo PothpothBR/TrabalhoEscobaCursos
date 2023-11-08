@@ -29,6 +29,13 @@ public class Main {
 
         database.insertMatricula(rodolpho, cursoDeSexo);
 
+        Disciplina disciplina = new DisciplinaNota();
+
+        disciplina.setNotaCorte(6);
+        disciplina.setNome("sexolandia");
+
+        database.insertDisciplina(disciplina, cursoDeSexo);
+
         List<Aluno> alunos = database.selectAlunos();
         alunos.forEach(aluno -> System.out.println(aluno.getNome()));
     }

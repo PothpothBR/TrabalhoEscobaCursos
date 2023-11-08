@@ -134,7 +134,7 @@ public class H2Database implements Database {
     }
 
     @Override
-    public List<Curso> selectCursos() throws SQLException {
+    public List<Curso> selectCursos(Aluno aluno) throws SQLException {
         List<Curso> cursos = new ArrayList<>();
 
         ResultSet res = conn.prepareStatement("select id, nome, tipo from curso").executeQuery();
@@ -153,7 +153,7 @@ public class H2Database implements Database {
 
             curso.setId(res.getLong(cId));
             curso.setNome(res.getString(cNome));
-            curso.setDisciplina(selectDisciplinas(curso));
+            curso.setDisciplinas(selectDisciplinas(curso));
 
             cursos.add(curso);
         }
@@ -174,7 +174,7 @@ public class H2Database implements Database {
             Aluno aluno = new Aluno();
             aluno.setId(res.getLong(cId));
             aluno.setNome(res.getString(cNome));
-            aluno.setCursos(selectCursos());
+            aluno.setCursos(selectCursos(aluno));
 
             alunos.add(aluno);
         }
