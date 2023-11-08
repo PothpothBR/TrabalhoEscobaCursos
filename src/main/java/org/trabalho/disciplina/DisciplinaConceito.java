@@ -1,7 +1,5 @@
 package org.trabalho.disciplina;
 
-import java.util.Arrays;
-
 public class DisciplinaConceito implements Disciplina{
     private String nome;
     private int nota;

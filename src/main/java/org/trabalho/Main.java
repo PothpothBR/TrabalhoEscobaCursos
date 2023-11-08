@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        DatabaseBuilder databaseBuilder = new H2Builder();
+        DatabaseBuilder databaseBuilder = new SqliteBuilder();
         Database database = databaseBuilder.build();
 
         Aluno rodolpho = new Aluno();
@@ -28,7 +28,7 @@ public class Main {
         database.insertAluno(rodolpho);
 
         Curso cursoDeSexo = new Tecnico();
-        cursoDeSexo.setNome("Curso de Sexo");
+        cursoDeSexo.setNome("tecnico");
 
         rodolpho.addCurso(cursoDeSexo);
 
@@ -41,7 +41,7 @@ public class Main {
         Disciplina disciplina = new DisciplinaNota();
 
         disciplina.setNotaCorte(6);
-        disciplina.setNome("sexolandia");
+        disciplina.setNome("sexolandia2");
 
         database.insertDisciplina(disciplina, cursoDeSexo);
         disciplina.setNota(9);
@@ -52,7 +52,7 @@ public class Main {
 
 
         Curso c2 = new Bacharelado();
-        c2.setNome("Curso de Sexo");
+        c2.setNome("bacharelado");
 
         rodolpho.addCurso(c2);
 
@@ -74,9 +74,8 @@ public class Main {
         database.updateDisciplina(disciplina);
 
 
-
         Curso c3 = new Mestrado();
-        c3.setNome("Curso de Sexo");
+        c3.setNome("Mestrado");
 
         rodolpho.addCurso(c3);
 
@@ -97,12 +96,11 @@ public class Main {
         System.out.println("Aprovação" + rodolpho.isAprovado());
         database.updateDisciplina(disciplina);
 
-
-
         Aluno Renato = new Aluno();
         Curso cursoDeNada = new Tecnico();
         Curso Programa = new Bacharelado();
         Curso bunda = new Mestrado();
+
         bunda.setNome("Alalala");
         cursoDeNada.setNome("Abulab");
         Renato.setNome("Renato Pordeus Furtado");
@@ -121,24 +119,12 @@ public class Main {
         dis.setConcluido(false);
         System.out.println("Nome: "+ Renato.getNome() + " Pode Cursar: "+Renato.podeCursar() + "Cursos" + Renato.getCursos());
 
-
-
-
-
-
-
         List<Aluno> alunos = database.selectAlunos();
         alunos.forEach(aluno -> System.out.println("Id:" + aluno.getId() + "\nNome: " + aluno.getNome()));
         System.out.println("\n");
         List<Disciplina> disciplinas = database.selectDisciplinas(cursoDeSexo);
         disciplinas.addAll(database.selectDisciplinas(c2));
         disciplinas.addAll(database.selectDisciplinas(c3));
-
-
-
-
-
-
 
         disciplinas.forEach(disciplina1 -> System.out.println("Disciplica: "+ disciplina1.getNome()+" "+" Aprovação: "+
                 disciplina1.isAprovado()));

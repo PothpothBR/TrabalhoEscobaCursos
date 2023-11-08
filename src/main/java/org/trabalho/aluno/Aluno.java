@@ -5,8 +5,6 @@ import org.trabalho.curso.Curso;
 import org.trabalho.curso.Mestrado;
 import org.trabalho.curso.Tecnico;
 import org.trabalho.database.Table;
-import org.trabalho.disciplina.Disciplina;
-import org.trabalho.disciplina.DisciplinaConceito;
 
 import java.util.ArrayList;
 import java.util.List;
