@@ -1,6 +1,8 @@
 package org.trabalho;
 
 import org.trabalho.aluno.Aluno;
+import org.trabalho.curso.Curso;
+import org.trabalho.curso.Mestrado;
 import org.trabalho.database.Database;
 import org.trabalho.database.DatabaseBuilder;
 import org.trabalho.database.SqliteBuilder;
@@ -14,13 +16,16 @@ public class Main {
         Database database = databaseBuilder.build();
 
         Aluno rodolpho = new Aluno();
-        rodolpho.setNome("rodolpho");
+        rodolpho.setNome("rodolpo sexooo");
 
         database.insertAluno(rodolpho);
 
-        rodolpho.setNome("josias");
+        Curso cursoDeSexo = new Mestrado();
+        cursoDeSexo.setNome("Curso de Sexo");
 
-        database.updateAluno(rodolpho);
+        database.insertCurso(cursoDeSexo);
+
+        database.insertMatricula(rodolpho, cursoDeSexo);
 
         List<Aluno> alunos = database.selectAlunos();
         alunos.forEach(aluno -> System.out.println(aluno.getNome()));

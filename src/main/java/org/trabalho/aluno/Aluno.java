@@ -19,7 +19,7 @@ public class Aluno implements Table {
     }
 
     public void setCursos(List<Curso> cursos){
-        cursos.addAll(cursos);
+        this.cursos.addAll(cursos);
     }
 
     public String getNome(){

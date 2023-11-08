@@ -25,13 +25,8 @@ public class Mestrado implements Curso{
     }
 
     @Override
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplinas.add(disciplina);
-    }
-
-    @Override
-    public void setDisciplina(List<Disciplina> disciplina) {
-        this.disciplinas.addAll(disciplina);
+    public void setDisciplinas(List<Disciplina> disciplinas) {
+        this.disciplinas.addAll(disciplinas);
     }
 
     @Override

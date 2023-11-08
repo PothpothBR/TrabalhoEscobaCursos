@@ -8,7 +8,6 @@ import org.trabalho.disciplina.DisciplinaNota;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SqliteDatabase implements Database {
@@ -34,7 +33,7 @@ public class SqliteDatabase implements Database {
                 "create table if not exists aluno (id integer primary key, nome text not null)"
         );
         statement.executeUpdate(
-                "create table if not exists diciplina " +
+                "create table if not exists disciplina " +
                     "(id integer primary key, id_curso integer not null, nome text not null, nota integer not null, " +
                     "nota_corte integer not null, concluido integer not null, tipo text not null)");
     }
@@ -112,10 +111,11 @@ public class SqliteDatabase implements Database {
     }
 
     @Override
-    public List<Curso> selectCursos() throws SQLException {
+    public List<Curso> selectCursos(Aluno aluno) throws SQLException {
         List<Curso> cursos = new ArrayList<>();
 
-        ResultSet res = conn.prepareStatement("select id, nome, tipo from curso").executeQuery();
+        ResultSet res = conn.prepareStatement("select id, nome, tipo from curso c " +
+                "join matricula m on m.id_curso = c.id where m.id_aluno = "+aluno.getId()).executeQuery();
 
         int cId = res.findColumn("id");
         int cNome = res.findColumn("nome");
@@ -131,7 +131,7 @@ public class SqliteDatabase implements Database {
 
             curso.setId(res.getLong(cId));
             curso.setNome(res.getString(cNome));
-            curso.setDisciplina(selectDisciplinas(curso));
+            curso.setDisciplinas(selectDisciplinas(curso));
 
             cursos.add(curso);
         }
@@ -152,7 +152,7 @@ public class SqliteDatabase implements Database {
             Aluno aluno = new Aluno();
             aluno.setId(res.getLong(cId));
             aluno.setNome(res.getString(cNome));
-            aluno.setCursos(selectCursos());
+            aluno.setCursos(selectCursos(aluno));
 
             alunos.add(aluno);
         }
