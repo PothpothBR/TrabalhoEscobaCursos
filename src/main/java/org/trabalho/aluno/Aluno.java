@@ -1,6 +1,9 @@
 package org.trabalho.aluno;
 
+import org.trabalho.curso.Bacharelado;
 import org.trabalho.curso.Curso;
+import org.trabalho.curso.Mestrado;
+import org.trabalho.curso.Tecnico;
 import org.trabalho.database.Table;
 import org.trabalho.disciplina.Disciplina;
 import org.trabalho.disciplina.DisciplinaConceito;
@@ -39,10 +42,14 @@ public class Aluno implements Table {
     }
 
     public List<String> podeCursar(){
-        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getClass().getSimpleName()))
-           && cursos.stream().anyMatch(c -> c.isAprovado() && "Bacharelado".equals(c.getClass().getSimpleName()))) return List.of("Tecnico", "Bacharelado", "Mestrado");
-        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getClass().getSimpleName()))) return List.of("Tecnico", "Bacharelado");
-        return List.of("Tecnico");
+        if (cursos.stream().anyMatch(c -> c.isAprovado() && Tecnico.class.getSimpleName().equals(c.getClass().getSimpleName()))
+           && cursos.stream().anyMatch(c -> c.isAprovado()
+                && Bacharelado.class.getSimpleName().equals(c.getClass().getSimpleName()))) return List.of(
+                        Tecnico.class.getSimpleName(), Bacharelado.class.getSimpleName(), Mestrado.class.getSimpleName());
+        if (cursos.stream().anyMatch(c -> c.isAprovado() &&
+                Tecnico.class.getSimpleName().equals(c.getClass().getSimpleName()))) return List.of(
+                        Tecnico.class.getSimpleName(), Bacharelado.class.getSimpleName());
+        return List.of(Tecnico.class.getSimpleName());
     }
      @Override
     public long getId() {

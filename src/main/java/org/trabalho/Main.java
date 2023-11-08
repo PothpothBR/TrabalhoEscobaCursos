@@ -104,5 +104,6 @@ public class Main {
         disciplinas.addAll(database.selectDisciplinas(c2));
         disciplinas.addAll(database.selectDisciplinas(c3));
         disciplinas.forEach(disciplina1 -> System.out.println(disciplina1.getNome() + " " + disciplina1.isAprovado()));
+
     }
 }
