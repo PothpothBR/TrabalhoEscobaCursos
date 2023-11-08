@@ -16,15 +16,10 @@ import java.util.List;
 public class H2Database implements Database {
     private Connection conn;
 
-    private long lastId() throws SQLException {
-        return conn.prepareStatement("select last_insert_rowid()")
-                .executeQuery()
-                .getLong(1);
-    }
 
     @Override
     public void open() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:h2:h2db.db");
+        conn = DriverManager.getConnection("jdbc:h2:./h2db.db");
         Statement statement = conn.createStatement();
         statement.executeUpdate(
                 "CREATE TABLE IF NOT EXISTS curso (id BIGINT AUTO_INCREMENT PRIMARY KEY, nome VARCHAR(255) NOT NULL, tipo VARCHAR(255) NOT NULL)"
@@ -51,7 +46,11 @@ public class H2Database implements Database {
         statement.setString(2, curso.getClass().getSimpleName());
         statement.executeUpdate();
 
-        curso.setId(lastId());
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+
+        if (generatedKeys.next()) {
+            curso.setId(generatedKeys.getLong(1));
+        }
 
     }
 
@@ -63,7 +62,11 @@ public class H2Database implements Database {
         statement.setString(1, aluno.getNome());
         statement.executeUpdate();
 
-        aluno.setId(lastId());
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+
+        if (generatedKeys.next()) {
+            aluno.setId(generatedKeys.getLong(1));
+        }
 
     }
 
@@ -81,7 +84,11 @@ public class H2Database implements Database {
         statement.setString(6, disciplina.getClass().getSimpleName());
         statement.executeUpdate();
 
-        disciplina.setId(lastId());
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+
+        if (generatedKeys.next()) {
+            disciplina.setId(generatedKeys.getLong(1));
+        }
 
     }
 
@@ -134,10 +141,11 @@ public class H2Database implements Database {
     }
 
     @Override
-    public List<Curso> selectCursos() throws SQLException {
+    public List<Curso> selectCursos(Aluno aluno) throws SQLException {
         List<Curso> cursos = new ArrayList<>();
 
-        ResultSet res = conn.prepareStatement("select id, nome, tipo from curso").executeQuery();
+        ResultSet res = conn.prepareStatement("select id, nome, tipo from curso c " +
+                "join matricula m on m.id_curso = c.id where m.id_aluno = "+aluno.getId()).executeQuery();
 
         int cId = res.findColumn("id");
         int cNome = res.findColumn("nome");
@@ -153,7 +161,7 @@ public class H2Database implements Database {
 
             curso.setId(res.getLong(cId));
             curso.setNome(res.getString(cNome));
-            curso.setDisciplina(selectDisciplinas(curso));
+            curso.setDisciplinas(selectDisciplinas(curso));
 
             cursos.add(curso);
         }
@@ -174,7 +182,7 @@ public class H2Database implements Database {
             Aluno aluno = new Aluno();
             aluno.setId(res.getLong(cId));
             aluno.setNome(res.getString(cNome));
-            aluno.setCursos(selectCursos());
+            aluno.setCursos(selectCursos(aluno));
 
             alunos.add(aluno);
         }
@@ -214,5 +222,4 @@ public class H2Database implements Database {
 
         return disciplinas;
     }
-
 }
