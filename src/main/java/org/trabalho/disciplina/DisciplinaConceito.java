@@ -49,6 +49,16 @@ public class DisciplinaConceito implements Disciplina{
         this.nota = nota;
     }
 
+    public Conceito getConceito(){
+        return Conceito.getConceito(nota);
+    }
+
+    public void setConceito(Conceito conceito){
+        nota = conceito.getValor();
+    }
+
+
+
     @Override
     public boolean isConcluido() {
         return isConcluido;
@@ -76,7 +86,7 @@ public class DisciplinaConceito implements Disciplina{
             return valor;
         }
 
-        public Conceito getConceito(int valor){
+        public static Conceito getConceito(int valor){
             for (Conceito conceito:Conceito.values()) if (conceito.valor == valor) return conceito;
             return null;
         }

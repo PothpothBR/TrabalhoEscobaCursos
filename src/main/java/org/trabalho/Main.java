@@ -6,6 +6,8 @@ import org.trabalho.curso.Mestrado;
 import org.trabalho.database.Database;
 import org.trabalho.database.DatabaseBuilder;
 import org.trabalho.database.SqliteBuilder;
+import org.trabalho.disciplina.Disciplina;
+import org.trabalho.disciplina.DisciplinaNota;
 
 import java.sql.SQLException;
 import java.util.List;
