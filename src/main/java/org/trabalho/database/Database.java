@@ -18,7 +18,7 @@ public interface Database {
     void updateAluno(Aluno aluno) throws SQLException;
     void updateDisciplina(Disciplina disciplina) throws SQLException;
 
-    List<Curso> selectCursos();
-    List<Aluno> selectAlunos();
-    List<Disciplina> selectDisciplinas();
+    List<Curso> selectCursos() throws SQLException;
+    List<Aluno> selectAlunos() throws SQLException;
+    List<Disciplina> selectDisciplinas(Curso curso) throws SQLException;
 }

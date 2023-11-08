@@ -1,8 +1,10 @@
 package org.trabalho.database;
 
 import org.trabalho.aluno.Aluno;
-import org.trabalho.curso.Curso;
+import org.trabalho.curso.*;
 import org.trabalho.disciplina.Disciplina;
+import org.trabalho.disciplina.DisciplinaConceito;
+import org.trabalho.disciplina.DisciplinaNota;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -110,21 +112,84 @@ public class SqliteDatabase implements Database {
     }
 
     @Override
-    public List<Curso> selectCursos() {
+    public List<Curso> selectCursos() throws SQLException {
         List<Curso> cursos = new ArrayList<>();
 
-        //ResultSet res = conn.prepareStatement("select ").executeQuery();
+        ResultSet res = conn.prepareStatement("select id, nome, tipo from curso").executeQuery();
 
-        return null;
+        int cId = res.findColumn("id");
+        int cNome = res.findColumn("nome");
+        int cTipo = res.findColumn("tipo");
+
+        while (res.next()){
+            String tipo = res.getString(cTipo);
+            Curso curso;
+            if (Tecnico.class.getSimpleName().equals(tipo)) curso = new Tecnico();
+            else if (Bacharelado.class.getSimpleName().equals(tipo))  curso = new Bacharelado();
+            else if (Mestrado.class.getSimpleName().equals(tipo))  curso = new Mestrado();
+            else continue;
+
+            curso.setId(res.getLong(cId));
+            curso.setNome(res.getString(cNome));
+            curso.setDisciplina(selectDisciplinas(curso));
+
+            cursos.add(curso);
+        }
+
+        return cursos;
     }
 
     @Override
-    public List<Aluno> selectAlunos() {
-        return null;
+    public List<Aluno> selectAlunos() throws SQLException {
+        List<Aluno> alunos = new ArrayList<>();
+
+        ResultSet res = conn.prepareStatement("select id, nome from aluno").executeQuery();
+
+        int cId = res.findColumn("id");
+        int cNome = res.findColumn("nome");
+
+        while (res.next()){
+            Aluno aluno = new Aluno();
+            aluno.setId(res.getLong(cId));
+            aluno.setNome(res.getString(cNome));
+            aluno.setCursos(selectCursos());
+
+            alunos.add(aluno);
+        }
+
+        return alunos;
     }
 
     @Override
-    public List<Disciplina> selectDisciplinas() {
-        return null;
+    public List<Disciplina> selectDisciplinas(Curso curso) throws SQLException {
+        List<Disciplina> disciplinas = new ArrayList<>();
+
+        ResultSet res = conn.prepareStatement("select id, nome, nota, nota_corte, concluido, tipo from disciplina " +
+                "where id_curso = "+curso.getId()).executeQuery();
+
+        int cId = res.findColumn("id");
+        int cNome = res.findColumn("nome");
+        int cNota = res.findColumn("nota");
+        int cNotaCorte = res.findColumn("nota_corte");
+        int cConcluido = res.findColumn("concluido");
+        int cTipo = res.findColumn("tipo");
+
+        while (res.next()){
+            String tipo = res.getString(cTipo);
+            Disciplina disciplina;
+            if (DisciplinaNota.class.getSimpleName().equals(tipo)) disciplina = new DisciplinaNota();
+            else if (DisciplinaConceito.class.getSimpleName().equals(tipo))  disciplina = new DisciplinaConceito();
+            else continue;
+
+            disciplina.setId(res.getLong(cId));
+            disciplina.setNome(res.getString(cNome));
+            disciplina.setNota(res.getInt(cNota));
+            disciplina.setNotaCorte(res.getInt(cNotaCorte));
+            disciplina.setConcluido(res.getBoolean(cConcluido));
+
+            disciplinas.add(disciplina);
+        }
+
+        return disciplinas;
     }
 }

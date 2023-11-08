@@ -11,6 +11,7 @@ public interface Curso extends Table {
     void setNome(String nome);
     List<Disciplina> getDisciplinas();
     void setDisciplina(Disciplina disciplina);
+    void setDisciplina(List<Disciplina> disciplina);
     List<String> dependeDe();
 
     boolean isAprovado();

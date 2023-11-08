@@ -13,6 +13,7 @@ public interface Disciplina extends Table {
     void setNota(int nota);
 
     boolean isConcluido();
+    void setConcluido(boolean concluido);
 
     boolean isAprovado();
 
