@@ -10,35 +10,55 @@ import java.util.List;
 public class SqliteDatabase implements Database {
     private Connection conn;
 
+    private long lastId() throws SQLException {
+        return conn.prepareStatement("select last_insert_rowid()")
+                .executeQuery()
+                .getLong(1);
+    }
+
     @Override
     public void open() throws SQLException {
         conn = DriverManager.getConnection("jdbc:sqlite:sqlite.db");
         Statement statement = conn.createStatement();
-        statement.executeUpdate("create table if not exists cursos (id integer primary key, nome text, tipo text)");
-        statement.executeUpdate("create table if not exists alunos (id integer primary key, id_curso integer, nome text, aprovado integer)");
-        statement.executeUpdate("create table if not exists diciplinas (id integer primary key, id_aluno integer, nome text, nota integer, tipo text)");
+        statement.executeUpdate(
+                "create table if not exists curso (id integer primary key, nome text not null, tipo text not null)"
+        );
+        statement.executeUpdate(
+                "create table if not exists matricula (id_aluno integer not null, id_curso integer not null)"
+        );
+        statement.executeUpdate(
+                "create table if not exists aluno (id integer primary key, nome text not null)"
+        );
+        statement.executeUpdate(
+                "create table if not exists diciplina " +
+                    "(id integer primary key, id_curso integer not null, nome text not null, nota integer not null, " +
+                    "nota_corte integer not null, tipo text not null)");
     }
 
     @Override
     public void insertCurso(Curso curso) throws SQLException {
-        Statement statement = conn.createStatement();
-        String query = "insert into cursos (nome, tipo) values ('" +
+        conn.prepareStatement(
+                "insert into curso (nome, tipo) values ('" +
                 curso.getNome() + "', '" +
-                curso.getClass().getSimpleName() + "')";
+                curso.getClass().getSimpleName() + "')"
+            ).executeUpdate();
 
-        statement.executeUpdate(query);
-        long id = statement.executeQuery("select last_insert_rowid()").getLong(1);
-        curso.setId(id);
+        curso.setId(lastId());
     }
 
     @Override
-    public void insertAluno(Aluno aluno) {
+    public void insertAluno(Aluno aluno) throws SQLException {
+        conn.prepareStatement(
+                "insert into aluno (nome, tipo) values ('" +
+                        aluno.getNome() + "', '" +
+                        aluno.getClass().getSimpleName() + "')"
+        ).executeUpdate();
 
+        aluno.setId(lastId());
     }
 
     @Override
     public void insertDisciplina(Disciplina disciplina) {
-
     }
 
     @Override

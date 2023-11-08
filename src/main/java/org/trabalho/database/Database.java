@@ -10,7 +10,7 @@ import java.util.List;
 public interface Database {
     void open() throws SQLException;
     void insertCurso(Curso curso) throws SQLException;
-    void insertAluno(Aluno aluno);
+    void insertAluno(Aluno aluno) throws SQLException;
     void insertDisciplina(Disciplina disciplina);
     void updateCurso(Curso curso);
     void updateAluno(Aluno aluno);

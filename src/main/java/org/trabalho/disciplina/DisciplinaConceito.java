@@ -1,7 +1,6 @@
 package org.trabalho.disciplina;
 
 public class DisciplinaConceito implements Disciplina{
-    boolean isAprovado;
     String Nome;
     Double Nota;
     long id;
