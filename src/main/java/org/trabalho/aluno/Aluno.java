@@ -22,6 +22,10 @@ public class Aluno implements Table {
         this.cursos.addAll(cursos);
     }
 
+    public void addCurso(Curso curso) {
+        this.cursos.add(curso);
+    }
+
     public String getNome(){
         return nome;
     }
@@ -35,9 +39,9 @@ public class Aluno implements Table {
     }
 
     public List<String> podeCursar(){
-        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getNome()))) return List.of("Tecnico", "Bacharelado");
-        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getNome()))
-           && cursos.stream().anyMatch(c -> c.isAprovado() && "Bacharelado".equals(c.getNome()))) return List.of("Tecnico", "Bacharelado", "Mestrado");
+        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getClass().getSimpleName()))
+           && cursos.stream().anyMatch(c -> c.isAprovado() && "Bacharelado".equals(c.getClass().getSimpleName()))) return List.of("Tecnico", "Bacharelado", "Mestrado");
+        if (cursos.stream().anyMatch(c -> c.isAprovado() && "Tecnico".equals(c.getClass().getSimpleName()))) return List.of("Tecnico", "Bacharelado");
         return List.of("Tecnico");
     }
      @Override

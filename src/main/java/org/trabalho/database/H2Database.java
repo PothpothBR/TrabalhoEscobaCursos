@@ -118,7 +118,7 @@ public class H2Database implements Database {
     @Override
     public void updateDisciplina(Disciplina disciplina) throws SQLException {
         PreparedStatement statement = conn.prepareStatement(
-                "UPDATE disciplina SET id_curso = , nome = ?, nota = ?, nota_corte = ?, concluido = ?, tipo = ? WHERE id = ?"
+                "UPDATE disciplina SET nome = ?, nota = ?, nota_corte = ?, concluido = ?, tipo = ? WHERE id = ?"
         );
         statement.setString(1, disciplina.getNome());
         statement.setInt(2, disciplina.getNota());
