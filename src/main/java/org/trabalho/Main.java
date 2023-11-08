@@ -15,6 +15,7 @@ import org.trabalho.disciplina.DisciplinaNota;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.stream.StreamSupport;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
@@ -93,17 +94,53 @@ public class Main {
         database.insertDisciplina(disciplina, c3);
         disciplina.setNota(DisciplinaConceito.Conceito.D.getValor());
         disciplina.setConcluido(false);
-        rodolpho.isAprovado();
+        System.out.println("Aprovação" + rodolpho.isAprovado());
         database.updateDisciplina(disciplina);
 
 
+
+        Aluno Renato = new Aluno();
+        Curso cursoDeNada = new Tecnico();
+        Curso Programa = new Bacharelado();
+        Curso bunda = new Mestrado();
+        bunda.setNome("Alalala");
+        cursoDeNada.setNome("Abulab");
+        Renato.setNome("Renato Pordeus Furtado");
+        Programa.setNome("Programa em qualquer Lugar");
+        Renato.addCurso(cursoDeNada);
+        Renato.addCurso(Programa);
+        Renato.addCurso(bunda);
+        database.insertAluno(Renato);
+        database.insertCurso(Programa);
+        database.insertMatricula(Renato,Programa);
+        Disciplina dis = new DisciplinaNota();
+        dis.setNotaCorte(5);
+        dis.setNome("Lixo");
+        database.insertDisciplina(dis,Programa);
+        dis.setNota(4);
+        dis.setConcluido(false);
+        System.out.println("Nome: "+ Renato.getNome() + " Pode Cursar: "+Renato.podeCursar() + "Cursos" + Renato.getCursos());
+
+
+
+
+
+
+
         List<Aluno> alunos = database.selectAlunos();
-        alunos.forEach(aluno -> System.out.println(aluno.getId() + " " + aluno.getNome()));
+        alunos.forEach(aluno -> System.out.println("Id:" + aluno.getId() + "\nNome: " + aluno.getNome()));
         System.out.println("\n");
         List<Disciplina> disciplinas = database.selectDisciplinas(cursoDeSexo);
         disciplinas.addAll(database.selectDisciplinas(c2));
         disciplinas.addAll(database.selectDisciplinas(c3));
-        disciplinas.forEach(disciplina1 -> System.out.println(disciplina1.getNome() + " " + disciplina1.isAprovado()));
 
+
+
+
+
+
+
+        disciplinas.forEach(disciplina1 -> System.out.println("Disciplica: "+ disciplina1.getNome()+" "+" Aprovação: "+
+                disciplina1.isAprovado()));
     }
 }
